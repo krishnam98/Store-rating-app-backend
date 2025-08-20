@@ -58,9 +58,24 @@ exports.dashboard = async (req, res) => {
 
 exports.getAllUsers = async (req, res) => {
   try {
+    const { name, email, address, role } = req.query;
+    const where = {};
+    where.id = { [Op.ne]: req.user.id };
+    if (name) {
+      where.name = { [Op.like]: `%${name}%` };
+    }
+    if (email) {
+      where.email = { [Op.like]: `%${email}%` };
+    }
+    if (address) {
+      where.address = { [Op.like]: `%${address}%` };
+    }
+    if (role) {
+      where.role = role;
+    }
     const Users = await User.findAll({
       attributes: ["id", "name", "email", "role", "address"],
-      where: { id: { [Op.ne]: req.user.id } },
+      where,
       include: [
         {
           model: Store,

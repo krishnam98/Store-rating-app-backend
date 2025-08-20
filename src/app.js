@@ -5,6 +5,9 @@ const sequelize = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const storeRoutes = require("./routes/storeRoutes");
+const ratingRoutes = require("./routes/ratingRoutes");
+const passwordRoutes = require("./routes/passwordRoute");
+const userRoutes = require("./routes/userRoute");
 
 const User = require("./models/user");
 
@@ -16,6 +19,9 @@ app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/admin", adminRoutes);
 app.use("/store", storeRoutes);
+app.use("/rating", ratingRoutes);
+app.use("/password", passwordRoutes);
+app.use("/user", userRoutes);
 
 sequelize
   .sync()
